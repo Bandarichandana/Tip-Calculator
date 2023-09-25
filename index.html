@@ -45,7 +45,12 @@
           <div class="people-sec">
             <label for="people">Number of People</label>
             <div class="people-input">
-              <input type="text" placeholder="0" id="people" />
+              <input
+                type="text"
+                placeholder="0"
+                id="people"
+                oninput="submitValue(event)"
+              />
               <img src="./images/icon-person.svg" alt="person" />
             </div>
           </div>

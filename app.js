@@ -5,11 +5,10 @@ const billTipAmount = document.getElementById("tipAmount");
 const billTotalPerPerson = document.getElementById("total");
 const resetButton = document.getElementById("resetBtn");
 const buttons = document.querySelectorAll(".tip-btns button");
-
-
+let tipvalue;
 buttons.forEach((button) => {
   button.addEventListener("click", (e) => {
-    let tipvalue = e.target.innerText;
+    tipvalue = e.target.innerText;
     tipvalue = tipvalue.substr(0, tipvalue.length - 1);
 
     if (billAmount.value === "") return;
@@ -37,18 +36,48 @@ customTipPercentage.addEventListener("blur", (e) => {
   );
 });
 
-
 function calculateTip(billAmount, tipPercentage, numberOfPeople) {
-  let tipAmount = (billAmount * (tipPercentage / 100)) / numberOfPeople;
+  let tipAmount=
+    numberOfPeople != 0
+      ? (billAmount * (tipPercentage / 100)) / numberOfPeople
+      : numberOfPeople;
   let tip = Math.floor(tipAmount * 100) / 100;
   tip = tip.toFixed(2);
 
-  let totalAmount = (tipAmount * numberOfPeople + billAmount) / numberOfPeople;
+  let totalAmount =
+    numberOfPeople != 0
+      ? (tipAmount * numberOfPeople + billAmount) / numberOfPeople
+      : numberOfPeople;
   totalAmount = totalAmount.toFixed(2);
 
   billTipAmount.innerHTML = `$${tip}`;
   billTotalPerPerson.innerHTML = `$${totalAmount}`;
 }
+
+submitValue = (event) => {
+  // if (billAmount.value === "") return;
+  // if (numberOfPeople.value === "") numberOfPeople.value = 0;
+  if (numberOfPeople.value.length > 0)
+    calculateTip(
+      parseFloat(billAmount.value),
+      parseInt(tipvalue),
+      parseInt(numberOfPeople.value)
+    );
+  else
+    calculateTip(parseFloat(billAmount.value), parseInt(tipvalue), parseInt(0));
+};
+
+numberOfPeople.addEventListener("input", () => {
+  const numPeople = parseInt(numberOfPeople.value);
+  if (numPeople > 0) {
+    tipAmount.style.backgroundColor = "white";
+  } else {
+    tipAmount.style.backgroundColor = "";
+  }
+});
+
+
+
 
 resetButton.addEventListener("click", resetEverything);
 function resetEverything() {
