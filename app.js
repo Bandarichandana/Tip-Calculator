@@ -52,6 +52,7 @@ function calculateTip(billAmount, tipPercentage, numberOfPeople) {
 
   billTipAmount.innerHTML = `$${tip}`;
   billTotalPerPerson.innerHTML = `$${totalAmount}`;
+
 }
 
 submitValue = (event) => {
@@ -71,7 +72,7 @@ numberOfPeople.addEventListener("input", () => {
   const numPeople = parseInt(numberOfPeople.value);
   if (numPeople > 0) {
     tipAmount.style.backgroundColor = "white";
-  } else {
+  } else{
     tipAmount.style.backgroundColor = "";
   }
 });
@@ -86,4 +87,6 @@ function resetEverything() {
   billAmount.value = "";
   numberOfPeople.value = "";
   customTipPercentage.value = "";
+  tipAmount.style.backgroundColor = "";
 }
+
